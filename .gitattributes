@@ -1,0 +1,9 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Known text files
+*.java text
+*.xml text
+*.md text
+*.sh text eol=lf
+*.ics text eol=crlf
