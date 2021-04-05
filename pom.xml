@@ -4,12 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.kot.time</groupId>
+	<groupId>io.github.striped</groupId>
 	<artifactId>time-util</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Time related utilities</name>
+
+	<licenses>
+		<license>
+			<name>The MIT license</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>striped</id>
+			<name>Kot Behemoth</name>
+			<email>striped@gmail.com</email>
+		</developer>
+	</developers>
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com:striped/time-util.git</developerConnection>
@@ -56,6 +71,29 @@
 					<version>3.2.0</version>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.2.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.2.0</version>
+					<configuration>
+						<tags>
+							<tag>
+								<name>created</name>
+								<placement>t</placement>
+								<head>Created:</head>
+							</tag>
+						</tags>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.6</version>
+				</plugin>
+				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
 					<version>3.0.0-M1</version>
 				</plugin>
@@ -91,4 +129,43 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>ci-cd</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<gpgArguments>
+										<arg>--pinentry-mode</arg>
+										<arg>loopback</arg>
+									</gpgArguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
