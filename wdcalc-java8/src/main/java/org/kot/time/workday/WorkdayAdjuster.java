@@ -10,13 +10,11 @@ import static org.kot.time.workday.WorkDayUtil.holidays;
 /**
  * Business day adjuster.
  * <p>
- * Adjusts the {@link Temporal temporal} to which it is applied on arbitrary number of business days to left (or right).
- * Assumes that {@link WorkDayUtil#initHolidays holidays calendar} is initialized before any first usage, otherwise do
- * not consider public holidays and considering only week ends as non-business days.
+ * Adjusts the {@link Temporal temporal} to which it is applied on arbitrary number of business days skipping weekends
+ * and bank holidays if they are defined. To consider only weekends, the holiday calendar might be not initialized.
  * <p>
- * Justification performed in time proportional to number of holidays within specified interval and doesn't depends on
- * number of days adjusted. That may be more preferred than dumb iteration with check up whether day is working day or
- * not.
+ * Justification performed in time proportional to number of holidays within effective interval and doesn't depends on
+ * number of days. That may be more suitable option than just calendar traversal that checks each and every day.
  *
  * @author <a href=mailto:striped@gmail.com>striped</a>
  * @created 01/04/2021 15:38
@@ -37,7 +35,7 @@ abstract class WorkdayAdjuster implements TemporalAdjuster {
 	/**
 	 * Business day adjuster (to left).
 	 * <p>
-	 * Intends to adjust on {@link #workDays} days before the temporal.
+	 * Intends to adjust temporal on specified {@link #workDays} days before.
 	 */
 	static class Left extends WorkdayAdjuster {
 

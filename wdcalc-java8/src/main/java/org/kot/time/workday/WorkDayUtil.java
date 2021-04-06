@@ -38,20 +38,30 @@ public class WorkDayUtil {
 
 	/**
 	 * Initialize holiday set from specified URL.
+	 * <p>
+	 * The passed URL identifies holiday calendar in iCal format (RFC 5545). Those holidays will be read and translated
+	 * into internal representation suitable for fast lookup.
+	 * <p>
+	 * Any holidays initialized before will be purged.
 	 *
-	 * @param url The URL of holiday calendar to read from.
-	 * @throws IOException On any unexpected I/O failure that prevent calendar initialization.
+	 * @param url The URL of holiday calendar to read.
+	 * @throws IOException On any unexpected I/O failure during calendar translation.
 	 */
 	public static void initHolidays(URL url) throws IOException {
-		initHolidays(url, new HolidayICalReader());
+		initHolidays(url, I_CAL_READER);
 	}
 
 	/**
-	 * Initialize holiday set from specified URL.
+	 * Initialize holiday set from specified URL with provided holiday reader.
+	 * <p>
+	 * The passed URL identifies holiday calendar in any format that can be managed by provided {@code reader}. Those
+	 * holidays might be read and correctly translated into internal representation suitable for fast lookup.
+	 * <p>
+	 * Any holidays initialized before will be purged.
 	 *
 	 * @param url    The URL of holiday calendar to read from.
 	 * @param reader The reader instance can translate the calendar representation into internal representation.
-	 * @throws IOException On any unexpected I/O failure that prevent calendar initialization.
+	 * @throws IOException On any unexpected I/O failure during calendar translation.
 	 */
 	public static void initHolidays(URL url, HolidayReader reader) throws IOException {
 		HOLS.clear();
@@ -60,20 +70,31 @@ public class WorkDayUtil {
 
 	/**
 	 * Initialize holiday set from specified local file system.
+	 * <p>
+	 * The passed {@code path} may point out on file or folder that contains holidays in iCal format (RFC 5545). Those
+	 * holidays will be read and translated into internal representation suitable for fast lookup.
+	 * <p>
+	 * Any holidays initialized before will be purged.
 	 *
 	 * @param path The path to file (or folder) to read holiday calendar from.
-	 * @throws IOException On any unexpected I/O failure that prevent calendar initialization.
+	 * @throws IOException On any unexpected I/O failure during calendar translation.
 	 */
 	public static void initHolidays(Path path) throws IOException {
 		initHolidays(path, I_CAL_READER);
 	}
 
 	/**
-	 * Initialize holiday set from specified local file system.
+	 * Initialize holiday set from specified local file system w/ provided holiday reader.
+	 * <p>
+	 * The passed {@code path} may point out on file or folder that contains holidays in any format that can be managed
+	 * by provided {@code reader}. Those holidays might be read and correctly translated into internal representation
+	 * suitable for fast lookup.
+	 * <p>
+	 * Any holidays initialized before will be purged.
 	 *
 	 * @param path   The path to file (or folder) to read holiday calendar from.
 	 * @param reader The reader instance can translate the calendar representation into internal representation.
-	 * @throws IOException On any unexpected I/O failure that prevent calendar initialization.
+	 * @throws IOException On any unexpected I/O failure during calendar translation.
 	 */
 	public static void initHolidays(Path path, HolidayReader reader) throws IOException {
 		HOLS.clear();
@@ -85,15 +106,31 @@ public class WorkDayUtil {
 					return FileVisitResult.CONTINUE;
 				}
 			});
-		} else reader.read(Files.newInputStream(path), HOLS);
+			return;
+		}
+		reader.read(Files.newInputStream(path), HOLS);
 	}
 
 	/**
-	 * Creates workday adjuster instance for justification on {@code days} before.
+	 * Creates workday adjuster instance for justification of temporal on specified number of {@code days} before one.
+	 * <p>
+	 * Calculates the new temporal that stands on requested number of days before applicable temporal. The typical usage
+	 * could be like this:
+	 * <pre>{@code
+	 * 		final TemporalAdjuster THIRTY_DAYS_BEFORE = WorkDayUtil.beforeBusinessDays(30);
+	 * 	    ...
+	 * 	    LocalDate date = ...
+	 * 	    LocalDate reviewDate = date.with(THIRTY_DAYS_BEFORE);
+	 * }</pre>
+	 * Temporal must have {@link ChronoUnit#DAYS} information for correct calculation.
 	 *
 	 * @param days The business days to justify before the applied.
 	 * @return The temporal adjuster instance.
 	 * @throws IllegalArgumentException If specified days are negative.
+	 * @see #initHolidays(Path)
+	 * @see #initHolidays(URL)
+	 * @see #initHolidays(Path, HolidayReader)
+	 * @see #initHolidays(URL, HolidayReader)
 	 */
 	public static TemporalAdjuster beforeBusinessDays(int days) {
 		requirePositive(days);
@@ -101,11 +138,24 @@ public class WorkDayUtil {
 	}
 
 	/**
-	 * Creates workday adjuster instance for justification on {@code days} after.
+	 * Creates workday adjuster instance for justification of temporal on specified number of {@code days} after.
+	 * <p>
+	 * Calculates the new temporal that stands on requested number of days after applicable temporal. The typical usage
+	 * could be like this:
+	 * <pre>{@code
+	 * 		final TemporalAdjuster THIRTY_DAYS_AFTER = WorkDayUtil.beforeBusinessDays(30);
+	 * 	    ...
+	 * 	    LocalDate reviewDate = LocalDate.now().with(THIRTY_DAYS_AFTER);
+	 * }</pre>
+	 * Temporal must have {@link ChronoUnit#DAYS} information for correct calculation.
 	 *
 	 * @param days The business days to justify after the applied.
 	 * @return The temporal adjuster instance.
 	 * @throws IllegalArgumentException If specified days are negative.
+	 * @see #initHolidays(Path)
+	 * @see #initHolidays(URL)
+	 * @see #initHolidays(Path, HolidayReader)
+	 * @see #initHolidays(URL, HolidayReader)
 	 */
 	public static TemporalAdjuster afterBusinessDays(int days) {
 		requirePositive(days);
@@ -114,12 +164,27 @@ public class WorkDayUtil {
 
 	/**
 	 * Calculate the number of business days inside specified calendar period.
+	 * <p>
+	 * Calculates the number of business days, excluding weekends and bank holidays (if holiday calendar is
+	 * initialized), between two temporals provided.
+	 * <p>
+	 * The typical usage could be like this:
+	 * <pre>{@code
+	 *      LocalDate date = ...
+	 * 	    long passedDays = WorkDayUtil.workdaysBetween(date, LocalDate.now());
+	 * }</pre>
+	 * Temporals must have {@link ChronoUnit#DAYS} information for correct calculation.
 	 *
-	 * @param start The start of period (inclusive).
+	 * @param start The start of period (inclusive), must be before .
 	 * @param end   The end of period (exclusive).
 	 * @return The number of business day in requested period.
 	 * @throws java.time.DateTimeException If temporal has no information about date.
 	 * @throws NullPointerException        If temporal is {@code null}.
+	 * @throws IllegalArgumentException    If {@code start} temporal is after an {@code end}.
+	 * @see #initHolidays(Path)
+	 * @see #initHolidays(URL)
+	 * @see #initHolidays(Path, HolidayReader)
+	 * @see #initHolidays(URL, HolidayReader)
 	 */
 	public static long workdaysBetween(Temporal start, Temporal end) {
 		Objects.requireNonNull(start, "Start is expected");
@@ -135,7 +200,7 @@ public class WorkDayUtil {
 	}
 
 	/**
-	 * Checks if specified day is weekend.
+	 * Checks if specified day is a weekend.
 	 *
 	 * @param date The temporal to check on.
 	 * @return {@code true} if and only if specified date is a weekend (i.e. {@link DayOfWeek#from(TemporalAccessor)
@@ -163,6 +228,10 @@ public class WorkDayUtil {
 	 * @return {@code true} if and only if specified date is a holiday according to calendar.
 	 * @throws java.time.DateTimeException If temporal has no information about date.
 	 * @throws NullPointerException        If temporal is {@code null}.
+	 * @see #initHolidays(Path)
+	 * @see #initHolidays(URL)
+	 * @see #initHolidays(Path, HolidayReader)
+	 * @see #initHolidays(URL, HolidayReader)
 	 */
 	public static boolean isHoliday(Temporal date) {
 		Objects.requireNonNull(date, "Date is expected");

@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * iCal holiday calendar reader.
  *
- * Reads holidays prescribed in iCal format as per RFC-5545.
+ * Reads holidays prescribed in iCal format (RFC-5545).
  * @author <a href=mailto:striped@gmail.com>striped</a>
  * @created 02/04/2021 15:50
  * @see <a href="https://tools.ietf.org/html/rfc5545">RFC-5545</a>

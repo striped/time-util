@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -38,7 +39,8 @@ public class WorkdayAdjusterTest {
 	public void testAdjustLeft(LocalDate date, int days) {
 		LocalDate expected = minusBusinessDays(date, days);
 
-		LocalDate actual = date.with(WorkDayUtil.beforeBusinessDays(days));
+		TemporalAdjuster adjuster = WorkDayUtil.beforeBusinessDays(days);
+		LocalDate actual = date.with(adjuster);
 
 		assertThat(actual, is(expected));
 	}
