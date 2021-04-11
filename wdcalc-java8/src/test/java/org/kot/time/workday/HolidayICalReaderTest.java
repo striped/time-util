@@ -30,7 +30,7 @@ public class HolidayICalReaderTest {
 		assertThat(holidays, iterableWithSize(expectedDays));
 	}
 
-	static Stream<Arguments> params() {
+	public static Stream<Arguments> params() {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		return Stream.of(
 				Arguments.arguments(9, loader.getResource("holidays/ireland-2020.ics")),

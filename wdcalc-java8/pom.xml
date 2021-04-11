@@ -12,7 +12,8 @@
 	</parent>
 
 	<artifactId>wdcalc-java8</artifactId>
-	<name>Business day calculator (Java 8)</name>
+	<name>Business day arithmetic (Java 8)</name>
+	<description>Utilities for calculation calendar days by workday and vise versa.</description>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>

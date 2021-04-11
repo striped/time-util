@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * iCal holiday calendar reader.
  *
- * Reads holidays prescribed in iCal format (RFC-5545).
+ * Reads holidays ascribed in iCal format (RFC-5545).
  * @author <a href=mailto:striped@gmail.com>striped</a>
  * @created 02/04/2021 15:50
  * @see <a href="https://tools.ietf.org/html/rfc5545">RFC-5545</a>
@@ -33,7 +33,7 @@ class HolidayICalReader implements HolidayReader {
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(from, StandardCharsets.UTF_8))) {
 			for (String line = reader.readLine(); null != line; line = reader.readLine()) {
-				/* Assuming each VEvent start date is from new line as 'DTSTART;VALUE=DATE:YYYYMMDD\n' */
+				/* Assuming each VEvent start date is from new line as 'DTSTART;VALUE=DATE:YYYYMMDD' */
 				int pos = line.indexOf(HOLIDAY_DATE_TAG);
 				if (0 <= pos) {
 					LocalDate date = LocalDate.parse(line.substring(pos + HOLIDAY_DATE_TAG.length()), FORMAT);
@@ -45,6 +45,7 @@ class HolidayICalReader implements HolidayReader {
 	}
 
 	private static boolean isWeekend(LocalDate date) {
+
 		switch (date.getDayOfWeek()) {
 			case SATURDAY:
 			case SUNDAY:

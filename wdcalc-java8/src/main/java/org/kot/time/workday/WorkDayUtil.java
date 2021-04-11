@@ -64,6 +64,9 @@ public class WorkDayUtil {
 	 * @throws IOException On any unexpected I/O failure during calendar translation.
 	 */
 	public static void initHolidays(URL url, HolidayReader reader) throws IOException {
+		Objects.requireNonNull(url, "Source is expected");
+		Objects.requireNonNull(reader, "Source reader is expected");
+
 		HOLS.clear();
 		reader.read(url.openStream(), HOLS);
 	}
@@ -97,6 +100,9 @@ public class WorkDayUtil {
 	 * @throws IOException On any unexpected I/O failure during calendar translation.
 	 */
 	public static void initHolidays(Path path, HolidayReader reader) throws IOException {
+		Objects.requireNonNull(path, "Source is expected");
+		Objects.requireNonNull(reader, "Source reader is expected");
+
 		HOLS.clear();
 		if (Files.isDirectory(path)) {
 			Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
