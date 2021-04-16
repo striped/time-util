@@ -29,7 +29,7 @@
 	</developers>
 
 	<scm>
-		<developerConnection>scm:git:ssh://git@github.com:striped/time-util.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:striped/time-util.git</developerConnection>
 	</scm>
 
 	<modules>
