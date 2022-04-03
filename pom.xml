@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.github.striped</groupId>
@@ -34,6 +35,7 @@
 
 	<modules>
 		<module>wdcalc-java8</module>
+		<module>wdcalc-perf8</module>
 	</modules>
 
 	<properties>
@@ -57,7 +59,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
+					<version>3.10.1</version>
 					<configuration>
 						<compilerArgs>
 							<arg>-Xlint:all,-options,-path</arg>
@@ -69,8 +71,17 @@
 					<version>3.0.0-M5</version>
 				</plugin>
 				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.7</version>
+				</plugin>
+				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.2.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.3.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
@@ -78,7 +89,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.3.2</version>
 					<configuration>
 						<tags>
 							<tag>
@@ -91,7 +102,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-gpg-plugin</artifactId>
-					<version>1.6</version>
+					<version>3.0.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
@@ -102,12 +113,16 @@
 					<version>3.0.0-M1</version>
 				</plugin>
 				<plugin>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>3.0.0-M5</version>
+				</plugin>
+				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.9.1</version>
+					<version>3.11.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>3.1.1</version>
+					<version>3.2.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -116,9 +131,14 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>io.github.striped</groupId>
+				<artifactId>wdcalc-java8</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter</artifactId>
-				<version>5.8.0-M1</version>
+				<version>5.8.2</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>

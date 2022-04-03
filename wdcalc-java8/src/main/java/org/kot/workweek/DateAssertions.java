@@ -1,0 +1,30 @@
+package org.kot.workweek;
+
+/**
+ * Utility for date assertions routines.
+ *
+ * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
+ * @created 02/04/2021 01:01
+ */
+class DateAssertions {
+
+	/**
+	 * Default constructor.
+	 * <p>
+	 * To prevent explicit instantiation.
+	 */
+	private DateAssertions() {
+	}
+
+	/**
+	 * Asserts that specified number is greater or equals to {@code 0}.
+	 *
+	 * @param number      The number to perform check upon.
+	 * @param description The number description, in case of assertion violation will be printed as violation details.
+	 * @throws IllegalArgumentException If provided number id less then {@code 0}.
+	 */
+	public static void requirePositive(int number, String description) {
+		if (0 > number)
+			throw new IllegalArgumentException(description + " can't be negative");
+	}
+}
