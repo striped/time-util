@@ -1,3 +1,23 @@
+# 🇺🇦 STAND WITH UKRAINE
+
+---
+
+> "russia" and its accomplice "belarus" invaded Ukraine. It was an act of unprovoked aggression condemned by whole
+> civilized world. Committed atrocity towards to Ukrainian civilian does not leave any doubts that it is genocide.
+> 
+> ***Strong support such unjustifiable aggression beyond russian indicates this is not an alone mad person problem;
+> it is rather nation level issue. Arguments regard to propaganda and autocratic governance doesn't sound: all these
+> crimes committed by people with same self-identification consciously and in free will.***
+> 
+> **Thus, as author of this project, I ask to refrain from usage / distribution / modification of any piece of this:**
+> * **by people who consider themselves russian,**
+> * **by organization, commercial and non-commercial that employ people who consider themselves russian,**
+> * **by organization, commercial and non-commercial, located in belarus territory.**
+>
+> Any requests for clarification / modification from mentioned people and / or organizations will be ignored.
+
+---
+
 # time-util
 
 Date/Time related utilities provides basic arithmetics around working days into calendar ones translation and vise

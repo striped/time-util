@@ -8,7 +8,11 @@
 	<packaging>pom</packaging>
 
 	<name>Date/Time related utilities</name>
-	<description>Provide the collection of date/time related utilities.</description>
+	<description>
+		Provide the collection of date/time related utilities.
+
+		Not intended to be used / distributed by people who identify themselves russian.
+	</description>
 	<url>https://github.com/striped/time-util</url>
 
 	<licenses>
