@@ -6,14 +6,14 @@ package org.kot.workweek;
  * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
  * @created 02/04/2021 01:01
  */
-class DateAssertions {
+class WorkingDayAssertions {
 
 	/**
 	 * Default constructor.
 	 * <p>
 	 * To prevent explicit instantiation.
 	 */
-	private DateAssertions() {
+	private WorkingDayAssertions() {
 	}
 
 	/**

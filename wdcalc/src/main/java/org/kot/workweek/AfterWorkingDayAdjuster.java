@@ -14,7 +14,7 @@ import java.time.temporal.TemporalAdjuster;
  * correspond that.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 01/04/2021 00:38
+ * @created 20/04/2022 15:23
  */
 class AfterWorkingDayAdjuster implements TemporalAdjuster {
 

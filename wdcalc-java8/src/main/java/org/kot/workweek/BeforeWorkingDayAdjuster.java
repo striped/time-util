@@ -13,7 +13,7 @@ import java.time.temporal.TemporalAdjuster;
  * consequent calls to adjust the provided temporal just reuse that state for fast calculation of the requested calendar
  * day.
  *
- * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
+ * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @created 02/04/2021 23:38
  */
 class BeforeWorkingDayAdjuster implements TemporalAdjuster {

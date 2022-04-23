@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * Read a holidays ascribed in iCal format (RFC-5545).
  *
  * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
- * @created 02/04/2021 15:50
+ * @created 20/04/2022 15:23
  * @see <a href="https://tools.ietf.org/html/rfc5545">RFC-5545</a>
  */
 public class ICalHolidays extends Holidays {

@@ -27,7 +27,7 @@ import java.util.function.Predicate;
  * after its construction.
  *
  * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
- * @created 03/04/2021 23:35
+ * @created 20/04/2022 15:23
  */
 public abstract class Holidays implements Iterable<ChronoLocalDate> {
 

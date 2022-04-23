@@ -24,7 +24,7 @@ import java.util.Objects;
  * calendar and vise versa.
  *
  * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
- * @created 01/04/2021 18:02
+ * @created 20/04/2022 15:23
  * @see <a href="https://en.wikipedia.org/wiki/Workweek_and_weekend">Work week and weekend</a>
  */
 public enum WorkingWeek {
@@ -39,13 +39,10 @@ public enum WorkingWeek {
 		public boolean isWorkingDay(Temporal date) {
 			Objects.requireNonNull(date, "Date is expected");
 
-			switch (DayOfWeek.from(date)) {
-				case SATURDAY:
-				case SUNDAY:
-					return false;
-				default:
-					return true;
-			}
+			return switch (DayOfWeek.from(date)) {
+				case SATURDAY, SUNDAY -> false;
+				default -> true;
+			};
 		}
 
 		@Override
@@ -126,12 +123,10 @@ public enum WorkingWeek {
 		public boolean isWorkingDay(Temporal date) {
 			Objects.requireNonNull(date, "Date is expected");
 
-			switch (DayOfWeek.from(date)) {
-				case FRIDAY:
-				case SATURDAY:
-					return false;
-			}
-			return true;
+			return switch (DayOfWeek.from(date)) {
+				case FRIDAY, SATURDAY -> false;
+				default -> true;
+			};
 		}
 
 		@Override

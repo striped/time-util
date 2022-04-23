@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -9,16 +11,16 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>wdcalc-java8</artifactId>
-	<name>Working day arithmetic (Java 8)</name>
+	<artifactId>wdcalc</artifactId>
+	<name>Working day arithmetic</name>
 	<description>
-		Utilities for calculation calendar days by workday and vise versa for Java 8.
+		Utilities for calculation calendar days by workday and vise versa since Java 17.
 
 		Not intended to be used / distributed by people who identify themselves as russian.
 	</description>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
 	</properties>
 
@@ -54,7 +56,7 @@
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<source>8</source>
+					<source>${maven.compiler.source}</source>
 				</configuration>
 				<executions>
 					<execution>
@@ -94,12 +96,6 @@
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.spotbugs</groupId>
-			<artifactId>spotbugs-annotations</artifactId>
-			<version>4.1.4</version>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

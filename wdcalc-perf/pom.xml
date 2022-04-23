@@ -7,11 +7,11 @@
 		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>wdcalc-perf8</artifactId>
-	<name>Working day arithmetic benchmark (for JDK8)</name>
+	<artifactId>wdcalc-perf</artifactId>
+	<name>Working day arithmetic benchmark</name>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
 		<uberjar.name>wdc-perf</uberjar.name>
 	</properties>
@@ -29,7 +29,7 @@
 				<configuration>
 					<toolchains>
 						<jdk>
-							<version>1.8</version>
+							<version>${maven.compiler.source}</version>
 						</jdk>
 					</toolchains>
 				</configuration>
@@ -78,7 +78,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.striped</groupId>
-			<artifactId>wdcalc-java8</artifactId>
+			<artifactId>wdcalc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openjdk.jmh</groupId>

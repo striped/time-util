@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * iCal holiday calendar test suite.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 02/04/2021 19:05
+ * @created 20/04/2022 15:23
  */
 public class ICalHolidaysTest {
 

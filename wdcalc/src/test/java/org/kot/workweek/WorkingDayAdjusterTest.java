@@ -20,7 +20,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * performed for all {@link WorkingWeek supported working days calendars}.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 08/01/2022 18:07
+ * @created 20/04/2022 15:23
  */
 public class WorkingDayAdjusterTest {
 

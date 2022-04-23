@@ -19,7 +19,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * supported business days calendars}.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 02/01/2022 19:11
+ * @created 20/04/2022 15:23
  */
 public class WorkingDayCalculatorTest {
 

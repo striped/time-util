@@ -1,5 +1,7 @@
 package org.kot.workweek;
 
+import org.kot.workweek.ResourceCrawler;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -13,7 +15,7 @@ import java.util.zip.ZipOutputStream;
  * Test utilities.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 03/04/2022 16:56
+ * @created 20/04/2022 15:23
  */
 public class TestUtils {
 

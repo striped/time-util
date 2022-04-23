@@ -23,7 +23,7 @@ import static org.kot.workweek.TestUtils.testResourceByName;
  * corresponding period.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 08/01/2022 18:07
+ * @created 20/04/2022 15:23
  */
 public class BusinessDayAdjusterTest {
 
