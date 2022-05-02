@@ -39,7 +39,7 @@ public class ICalHolidaysTest {
 	public void testSize(int expectedDays, URI url) {
 		System.setProperty(ICalHolidays.CALENDAR_URL, url.toString());
 
-		Holidays holidays = Holidays.getInstance(s -> s instanceof ICalHolidays);
+		Holidays holidays = Holidays.getInstance();
 
 		assertThat(holidays, iterableWithSize(expectedDays));
 	}
@@ -48,7 +48,7 @@ public class ICalHolidaysTest {
 	public void testIsHoliday() {
 		System.setProperty(ICalHolidays.CALENDAR_URL, TestUtils.testResourceByName("holidays/ireland-2021.ics").toString());
 
-		Holidays holidays = Holidays.getInstance(s -> s instanceof ICalHolidays);
+		Holidays holidays = Holidays.getInstance();
 
 		assertTrue(holidays.isHoliday(LocalDate.of(2021, 1, 1)));
 		assertTrue(holidays.isHoliday(LocalDate.of(2021, 3, 17)));
@@ -65,7 +65,7 @@ public class ICalHolidaysTest {
 	public void testCalculateHolidayBetween() {
 		System.setProperty(ICalHolidays.CALENDAR_URL, TestUtils.testResourceByName("holidays/ireland-2021.ics").toString());
 
-		Holidays holidays = Holidays.getInstance(s -> s instanceof ICalHolidays);
+		Holidays holidays = Holidays.getInstance();
 		LocalDate from = LocalDate.of(2021, 1, 1);
 		LocalDate to = LocalDate.of(2021, 12, 31);
 

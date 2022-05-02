@@ -32,7 +32,7 @@ public class BusinessDayAdjusterTest {
 	@BeforeAll
 	public static void setupHolidayCalendar() {
 		System.setProperty(ICalHolidays.CALENDAR_URL, testResourceByName("holidays/ireland-2021.ics").toString());
-		HOLIDAYS = Holidays.getInstance(s -> s instanceof ICalHolidays);
+		HOLIDAYS = Holidays.getInstance();
 	}
 
 	@ParameterizedTest(name = "[{0} {index}] Adjust {1} on {2} day(s) right")

@@ -3,7 +3,7 @@ package org.kot.workweek;
 /**
  * Utility for date assertions routines.
  *
- * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
+ * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @created 20/04/2022 15:23
  */
 class WorkingDayAssertions {

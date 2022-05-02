@@ -13,11 +13,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
- * Utilities for "crawling" over locally identifiable resources.
+ * Utilities for "crawling" over locally available resources.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @created 20/04/2022 15:23
@@ -25,7 +27,7 @@ import java.util.stream.Stream;
 class ResourceCrawler {
 
 	/**
-	 * DEfault constructor.
+	 * Default constructor.
 	 * <p>
 	 * To prevent explicit instantiation.
 	 */
@@ -46,6 +48,9 @@ class ResourceCrawler {
 	 * @see java.net.JarURLConnection
 	 */
 	public static Stream<String> lines(URL url, String extension) throws IOException, URISyntaxException {
+		Objects.requireNonNull(url, "URL is expected");
+		Objects.requireNonNull(extension, "Extension is expected");
+
 		switch (url.getProtocol()) {
 			case "file":
 				return lines(Paths.get(url.toURI()), extension);
@@ -71,15 +76,29 @@ class ResourceCrawler {
 	 * @return The stream of string lines read as content identified by specified {@code path}.
 	 * @throws IOException If unexpected I/O failure occurs.
 	 */
+	@SuppressWarnings("resource")
 	public static Stream<String> lines(Path path, String extension) throws IOException {
+		Objects.requireNonNull(path, "Path is expected");
+		Objects.requireNonNull(extension, "Extension is expected");
+
 		return Files.walk(path, FileVisitOption.FOLLOW_LINKS)
 				.filter(Files::isRegularFile)
-				.filter(p -> p.getFileName().toString().endsWith(extension))
+				.filter(p -> hasExtension(p, extension))
 				.flatMap((SafeFunction<Path, Stream<String>>) p -> {
 					BufferedReader reader = Files.newBufferedReader(p, StandardCharsets.UTF_8);
 					return reader.lines()
 							.onClose((SafeRunnable) reader::close);
 				});
+	}
+
+	private static boolean hasExtension(Path path, String ext) {
+		assert null != path: "Path is expected";
+		assert null != ext: "Extension is expected";
+
+		return Optional.ofNullable(path.getFileName())
+				.map(Path::toString)
+				.map(p -> p.regionMatches(true, p.length() - ext.length(), ext, 0, ext.length()))
+				.orElse(false);
 	}
 
 	interface SafeFunction<I, O> extends Function<I, O> {

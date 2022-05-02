@@ -1,15 +1,15 @@
-# Working day utilities (for Java 8)
+# Working day utilities
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.striped/wdcalc-java8/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.striped/wdcalc-java8)
-[![Javadoc](https://javadoc.io/badge2/io.github.striped/wdcalc-java8/javadoc.svg?style=plastic)](https://javadoc.io/doc/io.github.striped/wdcalc-java8)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.striped/wdcalc/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.striped/wdcalc)
+[![Javadoc](https://javadoc.io/badge2/io.github.striped/wdcalc/javadoc.svg?style=plastic)](https://javadoc.io/doc/io.github.striped/wdcalc)
 
-These Working day utilities implemented for JRE v. 1.8 and available on Central Maven repository. For a project under
+These Working day utilities are implemented for JRE v. 17 and available on Central Maven repository. For a project under
 the Maven build, please add following dependency:
 
 ```xml
 <dependency>
 	<groupId>io.github.striped</groupId>
-	<artifactId>wdcalc-java8</artifactId>
+	<artifactId>wdcalc</artifactId>
 	<version>[0.0.2)</version>
 </dependency>
 ```
@@ -19,7 +19,7 @@ the Maven build, please add following dependency:
 ### Calendar Day Adjustment
 
 Utilities for the working to calendar day translation realized in form of
-[j.t.t.TemporalAdjuster](https://docs.oracle.com/en/java/javase/8/docs/api/java.base/java/time/temporal/TemporalAdjuster.html)
+[j.t.t.TemporalAdjuster](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/temporal/TemporalAdjuster.html)
 to unison with **java.time** API. Once instantiated such adjuster can be re-used concurrently as its inner state won't
 change on invocation. For instance, having `date`, the previous 30 working day date, `reviewDate` could be calculated
 as:

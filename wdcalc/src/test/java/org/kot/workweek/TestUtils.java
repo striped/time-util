@@ -1,7 +1,5 @@
 package org.kot.workweek;
 
-import org.kot.workweek.ResourceCrawler;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;

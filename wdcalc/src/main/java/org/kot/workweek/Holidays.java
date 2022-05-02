@@ -15,18 +15,25 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 
 /**
- * Holiday calendar SPI representation.
+ * Holiday calendar SPI.
  * <p>
- * Provides general API for holiday calendar service which can be customized through the standard Java SPI
- * (META-INF/services). Main purpose of such service is to provide the client with conventional way to check:
- * <ul><li>is the specific local day is holiday or not and</li>
- * <li>how many holidays are in observed chronological interval</li></ul>
- * and guarantees all in no worse than logarithmic time complexity.
+ * Provides the service factory and the general holiday calendar API contract. Every implementation should be
+ * discoverable through the standard Java SPI mechanism (i.e. provides ... with). With the {@link #getInstance(Predicate)
+ * optional filter} client may select the specific instance beside many potentially available in a modules.
  * <p>
- * Provider implementation responsible for instantiation holiday calendar service ready for usage from a moment just
- * after its construction.
+ * Intentions of such holiday calendar service is to provide the client with a conventional way to check:
+ * <ol>
+ *     <li>is the specific local day is holiday or not (see {@link #isHoliday(Temporal)}),</li>
+ *     <li>how many holidays are in observed chronological interval (see {@link #holidaysBetween(Temporal, Temporal)})
+ *     and</li>
+ *     <li>instantiate temporal adjuster for arbitrary number of working days {@link #adjustDaysBefore(int, WorkingWeek)
+ *     into the past} as well as {@link #adjustDaysAfter(int, WorkingWeek) into the future}.</li>
+ * </ol>
+ * All those operations implemented in the base class, the only responsibility for the implementation is to fulfill the
+ * holidays from external dictionary.
  *
- * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
+ * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
+ * @implNote All provided API operations with runtime no worse than logarithmic computational complexity.
  * @created 20/04/2022 15:23
  */
 public abstract class Holidays implements Iterable<ChronoLocalDate> {
@@ -39,11 +46,24 @@ public abstract class Holidays implements Iterable<ChronoLocalDate> {
 	/**
 	 * Default constructor.
 	 * <p>
-	 * Implementation is responsible for configuring the {@link #holidays BST} on its instantiation. Meant, the BST
-	 * should be populated with all holidays required for normal usage of this calendar.
+	 * Implementation is responsible for population the {@link #holidays BST} on its instantiation. Meant, the BST must
+	 * be populated with all holidays required for normal usage of this calendar immediately after its construction.
 	 */
 	protected Holidays() {
 		holidays = new TreeSet<>(Comparator.comparingLong(ChronoField.EPOCH_DAY::getFrom));
+	}
+
+	/**
+	 * Default holiday calendar factory.
+	 * <p>
+	 * Instantiate the first available in classpath holiday calendar.
+	 *
+	 * @return The required holiday calendar instance ready for usage.
+	 * @apiNote Implementations must provide ready for usage instance from a moment of constructions. All consequent calls
+	 * of teh provided API should not change its internal state thus.
+	 */
+	public static Holidays getInstance() {
+		return getInstance(s -> true);
 	}
 
 	/**
@@ -60,13 +80,14 @@ public abstract class Holidays implements Iterable<ChronoLocalDate> {
 		Objects.requireNonNull(predicate, "Holiday calendar predicate is expected");
 
 		for (Holidays service : ServiceLoader.load(Holidays.class))
-			if (predicate.test(service))
-				return service;
+			if (predicate.test(service)) return service;
 		throw new DateTimeException("Can't find implementation of " + Holidays.class);
 	}
 
 	/**
-	 * Returns read holidays iterator.
+	 * Returns known holidays iterator.
+	 * <p>
+	 * Provided iterator of all known holidays in chronological order.
 	 *
 	 * @return The known holidays iterator.
 	 */
@@ -102,8 +123,7 @@ public abstract class Holidays implements Iterable<ChronoLocalDate> {
 	public long holidaysBetween(Temporal start, Temporal end) {
 		ChronoLocalDate from = ChronoLocalDate.from(start);
 		ChronoLocalDate to = ChronoLocalDate.from(end);
-		if (to.isBefore(from))
-			return 0;
+		if (to.isBefore(from)) return 0;
 		return holidays.subSet(from, to)
 				.size();
 	}

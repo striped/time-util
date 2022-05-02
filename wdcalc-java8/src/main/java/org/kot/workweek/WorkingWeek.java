@@ -7,23 +7,24 @@ import java.time.temporal.TemporalAdjuster;
 import java.util.Objects;
 
 /**
- * Working week representation enumeration provides tooling for calculation working days into calendar and vise versa.
+ * Working week configuration representation enum provides tooling for a translation of the working days into
+ * the calendar ones and vise versa.
  * <p>
- * In a different cultures around the world, the three Sabbaths derive from the culture's main religious tradition:
+ * In a different cultures around the world, the three sabbath types derive from the culture's main religious tradition:
  * <ul>
  * <li>Friday (Muslim),</li>
  * <li>Saturday (Jewish, Adventist) and</li>
  * <li>Sunday (Christian).</li>
  * </ul>
  * The first more than a single day as a "weekend" arose in Britain since 19th century and was a voluntary arrangement
- * between factory owners and workers allowing Saturday afternoon off. The Oxford English Dictionary traces the first
- * use of the term weekend to the British magazine "Notes and Queries", 1879. In the 1940s, an increasing number of
+ * between factory owners and workers allowing Saturday afternoon off. The Oxford English Dictionary traces the 1st use
+ * of the term "weekend" to the British magazine "Notes and Queries", 1879. In the 1940s, an increasing number of
  * countries adopted either a Friday–Saturday or a Saturday–Sunday weekend to harmonize with international markets and
  * these process is still going on with overall tendency towards to decreasing work week length. Here is most widely
  * used working week configuration provides tooling for fast translation the arbitrary number of working days into
  * calendar and vise versa.
  *
- * @author <a href=mailto:striped@gmail.com>Kot Behemoth</a>
+ * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @created 01/04/2021 18:02
  * @see <a href="https://en.wikipedia.org/wiki/Workweek_and_weekend">Work week and weekend</a>
  */
@@ -65,22 +66,22 @@ public enum WorkingWeek {
 		public TemporalAdjuster adjustDaysAfter(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new AfterWorkingDayAdjuster(days, 0, 5);
+			return new AfterWorkingDayAdjuster(days, DayOfWeek.MONDAY.ordinal(), 5);
 		}
 
 		@Override
 		public TemporalAdjuster adjustDaysBefore(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new BeforeWorkingDayAdjuster(days, -4, 5);
+			return new BeforeWorkingDayAdjuster(days, -DayOfWeek.FRIDAY.ordinal(), 5);
 		}
 	},
 
 	/**
 	 * 6 days working week with Saturday as a weekend.
 	 * <p>
-	 * Shorten than traditional (Christian), single day weekend working week. Still in use by some developing countries
-	 * like Mexico or India.
+	 * Shorten than traditional (Christian), a single day weekend working week. Still in use by some developing
+	 * countries like Mexico or India.
 	 */
 	MONDAY_SATURDAY {
 		@Override
@@ -105,14 +106,14 @@ public enum WorkingWeek {
 		public TemporalAdjuster adjustDaysAfter(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new AfterWorkingDayAdjuster(days, 0, 6);
+			return new AfterWorkingDayAdjuster(days, DayOfWeek.MONDAY.ordinal(), 6);
 		}
 
 		@Override
 		public TemporalAdjuster adjustDaysBefore(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new BeforeWorkingDayAdjuster(days, -5, 6);
+			return new BeforeWorkingDayAdjuster(days, -DayOfWeek.SATURDAY.ordinal(), 6);
 		}
 	},
 
@@ -151,21 +152,21 @@ public enum WorkingWeek {
 		public TemporalAdjuster adjustDaysAfter(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new AfterWorkingDayAdjuster(days, 1, 5);
+			return new AfterWorkingDayAdjuster(days, DayOfWeek.MONDAY.ordinal() + 1, 5);
 		}
 
 		@Override
 		public TemporalAdjuster adjustDaysBefore(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new BeforeWorkingDayAdjuster(days, -3, 5);
+			return new BeforeWorkingDayAdjuster(days, -DayOfWeek.FRIDAY.ordinal() + 1, 5);
 		}
 	},
 
 	/**
 	 * 6 days working day per week with sabbaths on Friday.
 	 * <p>
-	 * Adopted by Iran and few others countries with Muslim religion.
+	 * Adopted by Iran and few others Muslim countries.
 	 */
 	SATURDAY_THURSDAY {
 		@Override
@@ -190,21 +191,21 @@ public enum WorkingWeek {
 		public TemporalAdjuster adjustDaysAfter(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new AfterWorkingDayAdjuster(days, 2, 6);
+			return new AfterWorkingDayAdjuster(days, DayOfWeek.MONDAY.ordinal() + 2, 6);
 		}
 
 		@Override
 		public TemporalAdjuster adjustDaysBefore(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new BeforeWorkingDayAdjuster(days, -3, 6);
+			return new BeforeWorkingDayAdjuster(days, -DayOfWeek.FRIDAY.ordinal() + 1, 6);
 		}
 	},
 
 	/**
 	 * Nepal's working week.
 	 * <p>
-	 * 6 days working week with sabbaths on Saturday. Adopted in Nepal.
+	 * 6 days working week with sabbaths on Saturday. Adopted in Nepal only thus named so.
 	 */
 	SUNDAY_FRIDAY {
 		@Override
@@ -231,49 +232,48 @@ public enum WorkingWeek {
 		public TemporalAdjuster adjustDaysAfter(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new AfterWorkingDayAdjuster(days, 1, 6);
+			return new AfterWorkingDayAdjuster(days, DayOfWeek.MONDAY.ordinal() + 1, 6);
 		}
 
 		@Override
 		public TemporalAdjuster adjustDaysBefore(int days) {
 			WorkingDayAssertions.requirePositive(days, "Number of days");
 
-			return new BeforeWorkingDayAdjuster(days, -4, 6);
+			return new BeforeWorkingDayAdjuster(days, -DayOfWeek.FRIDAY.ordinal(), 6);
 		}
 	},
 	;
 
 	/**
-	 * Checks if specified temporal is a working day according to this workweek.
+	 * Checks if the specified temporal is a working day according to this workweek configuration.
 	 *
 	 * @param date The temporal that represented the day to check upon.
-	 * @return {@code true} if and only if specified temporal is a working day according to this workweek.
-	 * @throws java.time.DateTimeException If temporal has no information about day of week.
+	 * @return {@code true} if and only if the specified temporal is a working day according to this workweek.
+	 * @throws java.time.DateTimeException If temporal has no information about day of the week.
 	 * @throws NullPointerException        If temporal is {@code null}.
 	 */
 	public abstract boolean isWorkingDay(Temporal date);
 
 	/**
-	 * Calculate the number of working days inside specified calendar period within by provided {@code start} and
-	 * {@code end}.
+	 * Calculate the number of working days inside specified calendar period from the {@code start} up to the {@code end}.
 	 * <p>
 	 * Calculates the number of working days, excluding weekends, between specified temporals. If the {@code start} is
-	 * after {@code end} chronologically, the result is {@code 0}.
+	 * chronologically after the {@code end}, the result is {@code 0}.
 	 * <p>
 	 * The typical usage could be like this:
 	 * <pre>{@code
-	 *      WorkingWeek cal = ...
+	 *      WorkingWeek week = ...
 	 *      LocalDate date = ...
-	 * 	    long passedDays = cal.workdaysBetween(date, LocalDate.now());
+	 * 	    long passedDays = week.workdaysBetween(date, LocalDate.now());
 	 * }</pre>
 	 * Provided temporals must carry {@link ChronoUnit#DAYS} information for such calculation.
 	 *
 	 * @param start The start of period (inclusive).
 	 * @param end   The end of period (exclusive).
-	 * @return The number of working day within requested period of time.
-	 * @throws java.time.DateTimeException                         if the amount cannot be calculated, or if
-	 *                                                             either of temporal can't be converted to the same type
-	 *                                                             so calculation will be possible.
+	 * @return The number of working days within specified interval of time.
+	 * @throws java.time.DateTimeException                         if the amount cannot be calculated, or if either of
+	 *                                                             temporal can't be converted to the same type so
+	 *                                                             calculation will be possible.
 	 * @throws java.time.temporal.UnsupportedTemporalTypeException if either temporal doesn't support
 	 *                                                             {@link ChronoUnit#DAYS} unit.
 	 * @throws NullPointerException                                If any temporal is {@code null}.
@@ -283,50 +283,42 @@ public enum WorkingWeek {
 	public abstract long workdaysBetween(Temporal start, Temporal end);
 
 	/**
-	 * Creates workday adjuster instance for justification of temporal on specified number of {@code days} right.
+	 * Creates temporal adjuster instance for justification of temporal on specified number of {@code days} to the
+	 * right (into the future).
 	 * <p>
-	 * Calculates the new temporal that stands on requested number of days after specified temporal. The typical usage
-	 * could be like this:
+	 * Calculates the new temporal that stands on requested number of working days after specified temporal. The typical
+	 * usage could be like following:
 	 * <pre>{@code
-	 *      BusinessDay cal = ...
+	 *      WorkingWeek week = ...
 	 * 	    ...
 	 * 	    LocalDate date = ...
-	 * 	    LocalDate reviewDate = date.with(cal.adjustDaysAfter(20));
+	 * 	    LocalDate reviewDate = date.with(week.adjustDaysAfter(20));
 	 * }</pre>
 	 * Temporal must have {@link ChronoUnit#DAYS} information for correct calculation.
 	 *
 	 * @param days The working days to justify after the one it applied to.
 	 * @return The requested temporal adjuster instance.
-	 * @throws IllegalArgumentException                            If specified days are negative.
-	 * @throws java.time.DateTimeException                         if the amount cannot be calculated, or if
-	 *                                                             either of temporal can't be converted to the same type
-	 *                                                             so calculation will be possible.
-	 * @throws java.time.temporal.UnsupportedTemporalTypeException if either temporal doesn't support
-	 *                                                             {@link ChronoUnit#DAYS} unit.
+	 * @throws IllegalArgumentException If specified days are negative.
 	 */
 	public abstract TemporalAdjuster adjustDaysAfter(int days);
 
 	/**
-	 * Creates workday adjuster instance for justification of temporal on specified number of {@code days} left.
+	 * Creates temporal adjuster instance for justification of temporal on specified number of {@code days} left (into
+	 * the past).
 	 * <p>
 	 * Calculates the new temporal that stands on requested number of working days before specified temporal. The
-	 * typical usage could be like this:
+	 * typical usage could be like following:
 	 * <pre>{@code
-	 *      BusinessDay cal = ...
+	 *      WorkingWeek week = ...
 	 * 	    ...
 	 * 	    LocalDate date = ...
-	 * 	    LocalDate reviewDate = date.with(cal.adjustDaysBefore(20));
+	 * 	    LocalDate reviewDate = date.with(week.adjustDaysBefore(20));
 	 * }</pre>
 	 * Temporal must have {@link ChronoUnit#DAYS} information for correct calculation.
 	 *
 	 * @param days The working days to justify before the one it applied to.
 	 * @return The requested temporal adjuster instance.
-	 * @throws IllegalArgumentException                            If specified days are negative.
-	 * @throws java.time.DateTimeException                         if the amount cannot be calculated, or if
-	 *                                                             either of temporal can't be converted to the same type
-	 *                                                             so calculation will be possible.
-	 * @throws java.time.temporal.UnsupportedTemporalTypeException if either temporal doesn't support
-	 *                                                             {@link ChronoUnit#DAYS} unit.
+	 * @throws IllegalArgumentException If specified days are negative.
 	 */
 	public abstract TemporalAdjuster adjustDaysBefore(int days);
 }

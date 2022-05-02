@@ -69,7 +69,7 @@ public class AdjustWorkdayBenchmark {
 	public LocalDate adjustAfterLoop(AdjustingState state) {
 		LocalDate result = state.start;
 		while (!WorkingWeek.MONDAY_FRIDAY.isWorkingDay(result)) result = result.plusDays(1);
-		for (int d = state.days; d --> 0;) {
+		for (int d = state.days; d-- > 0; ) {
 			result = result.plusDays(1);
 			while (!WorkingWeek.MONDAY_FRIDAY.isWorkingDay(result)) result = result.plusDays(1);
 		}
@@ -80,7 +80,7 @@ public class AdjustWorkdayBenchmark {
 	public LocalDate adjustBeforeLoop(AdjustingState state) {
 		LocalDate result = state.start;
 		while (!WorkingWeek.MONDAY_FRIDAY.isWorkingDay(result)) result = result.minusDays(1);
-		for (int d = state.days; d --> 0;) {
+		for (int d = state.days; d-- > 0; ) {
 			result = result.minusDays(1);
 			while (!WorkingWeek.MONDAY_FRIDAY.isWorkingDay(result)) result = result.minusDays(1);
 		}

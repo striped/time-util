@@ -1,5 +1,5 @@
 /**
- * TODO Describe me.
+ * Working day calculator module descriptor.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @created 20/04/2022 15:21
