@@ -4,22 +4,27 @@ import java.time.DayOfWeek;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
+import java.util.Objects;
 
 /**
  * Implementation of the temporal adjuster on arbitrary number of working day(s) into the future.
  * <p>
  * Implements the {@link TemporalAdjuster} for adjusting the provided temporal on arbitrary number of working days in
- * the future. Tuning the internal state on instantiation accordingly to the specified workweek configuration thus each
- * and every consequent invocation to adjust the provided temporal instance calculates the requested calendar day in the
- * constant time.
+ * the future. On instantiation tunes the internal state accordingly to the specified configuration thus each and every
+ * consequent invocation to adjust the provided temporal instance calculates the requested calendar day in the constant
+ * time.
  * <p>
  * Semantics of the {@code 0} working day adjustment equivalent to moving to the nearest working day in the future, if
  * and only if the current day falls on weekend.
+ * <p>
+ * This adjuster doesn't consider bank / public holidays that are specific to {@link Holidays cultural region} and must
+ * be used separately.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @implSpec Implementation doesn't change its internal state as well as passed temporal, thus is thread safe and can be
  * called concurrently.
  * @created 01/04/2021 00:38
+ * @see Holidays
  */
 class AfterWorkingDayAdjuster implements TemporalAdjuster {
 
@@ -57,10 +62,10 @@ class AfterWorkingDayAdjuster implements TemporalAdjuster {
 	}
 
 	/**
-	 * Adjust the specified temporal by adding pre-configured number of working days.
+	 * Adjust the specified temporal by predefined working days in the future.
 	 * <p>
-	 * Returns the new temporal instance that stands onto arbitrary number of working days (specified on instantiation
-	 * of this adjuster).
+	 * Returns the new temporal instance that stands onto arbitrary number of working days (defined on instantiation)
+	 * in the future.
 	 * <p>
 	 * This adjuster doesn't consider bank / public holidays that are specific to {@link Holidays cultural region}.
 	 *
@@ -69,14 +74,16 @@ class AfterWorkingDayAdjuster implements TemporalAdjuster {
 	 */
 	@Override
 	public Temporal adjustInto(Temporal temporal) {
+		Objects.requireNonNull(temporal, "Temporal can't be null");
+
 		int start = weekStart + DayOfWeek.from(temporal).ordinal();
 		int days = workDays;
 		if (6 == start) {
-			/* if that is a middle of weekend we would rather shift day without attempt to calculate a week */
+			/* if falls in weekend we rather skip day without attempt to calculate a week count */
 			start++;
 			days++;
 		}
-		if (6 < start) start -= 7; // just modulo 7, no while as start can't be bigger than 2 * 7
+		if (6 < start) start -= 7; // simple modulo 7, no loop as start can't be bigger than 2 * 7
 		long weeks = (workDays + start) / weekLength;
 		return temporal.plus(days + weekendLength * weeks, ChronoUnit.DAYS);
 	}

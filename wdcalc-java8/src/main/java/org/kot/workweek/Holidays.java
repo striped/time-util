@@ -17,9 +17,9 @@ import java.util.function.Predicate;
 /**
  * Holiday calendar SPI.
  * <p>
- * Provides the service factory and the general holiday calendar API contract. Every implementation should be
- * discoverable through the standard Java SPI mechanism (i.e. META-INF/services). With the {@link #getInstance(Predicate)
- * optional filter} client may select the specific instance beside many potentially available in a Class Path.
+ * Provides the service factory and the general holiday calendar API contract. Implementation should be discoverable
+ * through the standard Java SPI mechanism (i.e. provides ... with). With the {@link #getInstance(Predicate) optional
+ * filter} client may select the specific instance beside many potentially available in a modules.
  * <p>
  * Intentions of such holiday calendar service is to provide the client with a conventional way to check:
  * <ol>
