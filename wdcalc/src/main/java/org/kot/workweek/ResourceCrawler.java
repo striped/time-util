@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * Utilities for "crawling" over locally available resources.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 20/04/2022 15:23
+ * @created 18/02/2022 20:14
  */
 class ResourceCrawler {
 

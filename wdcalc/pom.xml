@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,30 +15,55 @@
 	<description>
 		Utilities for calculation calendar days by workday and vise versa since Java 17.
 
-		Not intended to be used / distributed by people who identify themselves as russian.
+		Not intended to be used / distributed by people who identify themselves as russian or belarusian.
 	</description>
-
-	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>${maven.compiler.source}</source>
+					<release>8</release>
 				</configuration>
+				<executions>
+					<!-- for Java 9 -->
+					<execution>
+						<id>java9</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<release>9</release>
+							<compileSourceRoots>
+								<compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
+							</compileSourceRoots>
+							<multiReleaseOutput>true</multiReleaseOutput>
+						</configuration>
+					</execution>
+					<!-- for Java 14 -->
+					<execution>
+						<id>java14</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<release>14</release>
+							<compileSourceRoots>
+								<compileSourceRoot>${project.basedir}/src/main/java14</compileSourceRoot>
+							</compileSourceRoots>
+							<multiReleaseOutput>true</multiReleaseOutput>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-toolchains-plugin</artifactId>
+				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-					<toolchains>
-						<jdk>
-							<version>${maven.compiler.source}</version>
-						</jdk>
-					</toolchains>
+					<archive>
+						<manifestEntries>
+							<Multi-Release>true</Multi-Release>
+						</manifestEntries>
+					</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -53,9 +79,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -80,6 +103,12 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<!-- Exclude alternate versions for multi-release modules-->
+							<excludes>
+								<exclude>META-INF/**/*</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

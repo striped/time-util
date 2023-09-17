@@ -10,28 +10,12 @@
 	<artifactId>wdcalc-perf</artifactId>
 	<name>Working day arithmetic benchmark</name>
 
-	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-		<uberjar.name>wdc-perf</uberjar.name>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>${maven.compiler.source}</source>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<configuration>
-					<toolchains>
-						<jdk>
-							<version>${maven.compiler.source}</version>
-						</jdk>
-					</toolchains>
+					<release>17</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -90,5 +74,4 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
 </project>

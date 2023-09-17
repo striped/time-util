@@ -25,7 +25,7 @@ import java.util.Objects;
  * calendar and vise versa.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 20/04/2022 15:23
+ * @created 01/04/2021 18:02
  * @see <a href="https://en.wikipedia.org/wiki/Workweek_and_weekend">Work week and weekend</a>
  */
 public enum WorkingWeek {
@@ -40,10 +40,13 @@ public enum WorkingWeek {
 		public boolean isWorkingDay(Temporal date) {
 			Objects.requireNonNull(date, "Date is expected");
 
-			return switch (DayOfWeek.from(date)) {
-				case SATURDAY, SUNDAY -> false;
-				default -> true;
-			};
+			switch (DayOfWeek.from(date)) {
+				case SATURDAY:
+				case SUNDAY:
+					return false;
+				default:
+					return true;
+			}
 		}
 
 		@Override
@@ -78,7 +81,7 @@ public enum WorkingWeek {
 	 * 6 days working week with Saturday as a weekend.
 	 * <p>
 	 * Shorten than traditional (Christian), a single day weekend working week. Still in use by some developing
-	 * countries like Mexico or India.
+	 * countries like Mexico.
 	 */
 	MONDAY_SATURDAY {
 		@Override
@@ -124,10 +127,12 @@ public enum WorkingWeek {
 		public boolean isWorkingDay(Temporal date) {
 			Objects.requireNonNull(date, "Date is expected");
 
-			return switch (DayOfWeek.from(date)) {
-				case FRIDAY, SATURDAY -> false;
-				default -> true;
-			};
+			switch (DayOfWeek.from(date)) {
+				case FRIDAY:
+				case SATURDAY:
+					return false;
+			}
+			return true;
 		}
 
 		@Override
@@ -161,7 +166,7 @@ public enum WorkingWeek {
 	/**
 	 * 6 days working day per week with sabbaths on Friday.
 	 * <p>
-	 * Adopted by Iran and few others Muslim countries.
+	 * Adopted by few Muslim countries.
 	 */
 	SATURDAY_THURSDAY {
 		@Override
@@ -200,7 +205,7 @@ public enum WorkingWeek {
 	/**
 	 * Nepal's working week.
 	 * <p>
-	 * 6 days working week with sabbaths on Saturday. Adopted in Nepal only thus named so.
+	 * 6 days working week with sabbaths on Saturday.
 	 */
 	SUNDAY_FRIDAY {
 		@Override

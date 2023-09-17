@@ -9,21 +9,20 @@ import java.util.Objects;
 /**
  * Implementation of the temporal adjuster on arbitrary number of working day(s) into the past.
  * <p>
- * Implements the {@link TemporalAdjuster} for adjusting the provided temporal on arbitrary number of working days into
- * the past. On instantiation tunes the internal state accordingly to the specified configuration thus each and every
- * consequent invocation to adjust the provided temporal instance calculates the requested calendar day in the constant
- * time.
+ * Implements the {@link TemporalAdjuster} for projecting the provided temporal by arbitrary number of working days into
+ * the past. On instantiation tunes the internal state accordingly the specified configuration thus each and every
+ * consequent usage calculates the requested calendar day in the constant time.
  * <p>
  * Semantics of the {@code 0} working day adjustment equivalent to moving to the nearest working day into the past, if
- * and only if current day falls on weekend.
+ * and only if current day falls on a weekend.
  * <p>
  * This adjuster doesn't consider bank / public holidays that are specific to {@link Holidays cultural region} and must
- * be used separately.
+ * be used in additional.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @implSpec Implementation doesn't change its internal state as well as passed temporal, thus is thread safe and can be
  * called concurrently.
- * @created 20/04/2022 15:23
+ * @created 02/04/2021 23:38
  * @see Holidays
  */
 class BeforeWorkingDayAdjuster implements TemporalAdjuster {
@@ -43,8 +42,8 @@ class BeforeWorkingDayAdjuster implements TemporalAdjuster {
 	/**
 	 * Constructs the working day adjuster in the past with specified workweek parameters.
 	 * <p>
-	 * Specifying {@code 0} as a working day to adjust to, would be equivalent to creation adjuster on nearest working
-	 * day in the past. Meant the provided temporal will be adjusted if and only if it falls on weekend.
+	 * Specifying {@code 0} as a working day to adjust to, semantically equivalent creation an adjuster to the nearest
+	 * working day from the past. Meant the provided temporal will be adjusted if and only if it falls on a weekend.
 	 *
 	 * @param workDays   The working days required to adjust provided temporal on each {@code #adjustInto usage}.
 	 * @param weekStart  The negative workweek start day ordinal, must be in (-7..0].
@@ -62,10 +61,10 @@ class BeforeWorkingDayAdjuster implements TemporalAdjuster {
 	}
 
 	/**
-	 * Adjust the specified temporal by predefined working days in the past.
+	 * Adjust the specified temporal by predefined working days from the past.
 	 * <p>
 	 * Returns the new temporal instance that stands onto arbitrary number of working days (specified on instantiation)
-	 * in the past.
+	 * from the past.
 	 * <p>
 	 * This adjuster doesn't consider bank / public holidays that are specific to {@link Holidays cultural region}.
 	 *

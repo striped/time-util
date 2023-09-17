@@ -23,8 +23,8 @@ import java.util.function.Predicate;
  * <p>
  * Intentions of such holiday calendar service is to provide the client with a conventional way to check:
  * <ol>
- *     <li>is the specific local day is holiday or not (see {@link #isHoliday(Temporal)}),</li>
- *     <li>how many holidays are in observed chronological interval (see {@link #holidaysBetween(Temporal, Temporal)})
+ *     <li>is the specific local day is a holiday or not (see {@link #isHoliday(Temporal)}),</li>
+ *     <li>how many holidays are in the observed chronological interval (see {@link #holidaysBetween(Temporal, Temporal)})
  *     and</li>
  *     <li>instantiate temporal adjuster for arbitrary number of working days {@link #adjustDaysBefore(int, WorkingWeek)
  *     into the past} as well as {@link #adjustDaysAfter(int, WorkingWeek) into the future}.</li>
@@ -34,12 +34,12 @@ import java.util.function.Predicate;
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
  * @implNote All provided API operations with runtime no worse than logarithmic computational complexity.
- * @created 20/04/2022 15:23
+ * @created 03/04/2021 23:35
  */
 public abstract class Holidays implements Iterable<ChronoLocalDate> {
 
 	/**
-	 * BST for holidays searchable .
+	 * BST for holidays searchable in logarithmic time.
 	 */
 	protected final NavigableSet<ChronoLocalDate> holidays;
 
@@ -174,5 +174,19 @@ public abstract class Holidays implements Iterable<ChronoLocalDate> {
 			}
 			return start;
 		};
+	}
+
+	/**
+	 * Auxiliary entry point for a convenient check of services API from command line.
+	 * <p>
+	 * Just load available through auto-discovery mechanism services for holidays callendar.
+	 *
+	 * @param args The command line arguments, if any. Not used.
+	 */
+	public static void main(String[] args) {
+		System.out.printf("Checkup environment for Working Day Arithmetic%nJRE: %s%nCP:%s%n",
+				System.getProperty("java.home"), System.getProperty("java.class.path"));
+		for (Holidays service : ServiceLoader.load(Holidays.class))
+			System.out.printf("Found %s%n", service.getClass());
 	}
 }

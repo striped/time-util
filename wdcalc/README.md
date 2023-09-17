@@ -3,14 +3,14 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.striped/wdcalc/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.striped/wdcalc)
 [![Javadoc](https://javadoc.io/badge2/io.github.striped/wdcalc/javadoc.svg?style=plastic)](https://javadoc.io/doc/io.github.striped/wdcalc)
 
-These Working day utilities are implemented for JRE v. 17 and available on Central Maven repository. For a project under
-the Maven build, please add following dependency:
+These Working day utilities are implemented for JRE v. 8+ and available on Central Maven repository. For a project 
+under the Maven build, please add following dependency:
 
 ```xml
 <dependency>
 	<groupId>io.github.striped</groupId>
 	<artifactId>wdcalc</artifactId>
-	<version>[0.0.2)</version>
+	<version>[0.0.4)</version>
 </dependency>
 ```
 
@@ -31,7 +31,6 @@ import org.kot.workweek.WorkingWeek;
 ...        
     static final TemporalAdjuster THIRTY_DAYS_BEFORE = WorkingWeek.MONDAY_FRIDAY.adjustDaysBefore(30);
 ...
-        // somewhere in the code    
         LocalDate date = ...
         LocalDate reviewDate = date.with(THIRTY_DAYS_BEFORE);
 ```
@@ -107,7 +106,7 @@ import org.kot.workweek.ICalHolidays;
 
 Holiday calendar is always specific for certain region and defined by the complex religious, cultural or historical
 traditions. It means, the calendar instance should be loadable from external source(s) and maximally customizable as
-such source(s) could vary from local file up to the REST API call. Thus, the simple service loader facility was
+such source(s) could vary from local file up to the remote API call. Thus, the simple service loader facility was
 employed to satisfy mentioned above demands. This will provide maximal extensibility with all heavy lifting supplied by
 JRE.
 

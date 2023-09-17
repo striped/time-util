@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  * The extension case is ignored for user convenience.
  *
  * @author <a href="mailto:striped@gmail.com">Kot Behemoth</a>
- * @created 20/04/2022 15:23
+ * @created 02/04/2021 15:50
  * @see <a href="https://tools.ietf.org/html/rfc5545">RFC-5545</a>
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/net/JarURLConnection.html">JAR URL schema</a>
  */

@@ -2,23 +2,22 @@
 
 ---
 
-> "russia" and its accomplice "belarus" invaded Ukraine. It was an act of unprovoked aggression condemned by the whole
-> civilized world. They have committed atrocities towards Ukrainian civilians and this does not leave any doubt that
-> it is
-> genocide.
+> "russia" and its accomplice "belarus" invaded Ukraine in 2014. This is an act of unprovoked aggression and is 
+> something unspeakably disgusting for me personally. 
 >
-> ***Strong support of such unjustifiable aggression from the russian people indicates this is not just a one mad person
-> problem; it is rather the nation's issue. Arguments regarding propaganda and autocratic governance isn't justifiable:
-> all these
-> crimes are committed by people identifying themselves as russian, consciously and by free will.***
+> ***Adamant support of such unjustifiable actions by majority of the russian nationals indicates this is not just a 
+> one mad person problem; it is rather the nation level issue. It speaks loudly about ethics, culture and which values
+> they possess. Objections about propaganda and autocratic governance isn't justifiable: all those committed by simple
+> people, in name of whole nation consciously and by their free will. Thus, everyone identified as such are accountable 
+> for those actions no less than those involved directly.***
+> 
+> ***Why "belarusian"? Because their damned country was used as for invasion and bombardment of Ukraine.*** 
 >
 > **Thus, as author of this project, I shall ask the user to refrain from any usage / distribution / modification of
-> any piece of this project:**
-> * **by people who consider themselves as russian,**
-> * **by organizations, commercial and non-commercial that employ people who consider themselves as russian,**
-> * **by organizations, commercial and non-commercial, located territorially in belarus and in russia.**
->
-> Any requests for clarification / modification from people and / or organizations mentioned above, will be ignored.
+> any piece of this code:**
+> * **by people who consider themselves as russian and belarusian,**
+> * **by organizations, commercial and non-commercial that employ people who consider themselves as russian and
+> belarusian.**
 
 ---
 
@@ -30,9 +29,9 @@ applications to follow only labour days, specifics to that or other religious or
 region.
 
 Intention to offer this to the public was dictated due to the lack of such functionality in standard and / or widely
-adopted tools. Existing solutions are based on brute force iteration that is working well but still have questionable
-efficacy. Albeit, the simple arithmetic of such translation between the calendar days and working ones is
-straightforward.
+adopted tools. Existing solutions are based on brute force iteration that is working well on short time intervals, but 
+are linear and not efficient on middle to long ranges. Albeit, the simple arithmetic of such a calendar to a labour days
+translation is indeed simple and straightforward.
 
 [Working day arithmetics] [workweek] for a traditional 5 days workweek (i.e. Christian) based on the following facts
 that are observed always and are true by definition:
