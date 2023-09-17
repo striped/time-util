@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>time-util</artifactId>
 		<groupId>io.github.striped</groupId>
-		<version>0.0.4</version>
+		<version>0.0.5-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>wdcalc-perf</artifactId>
